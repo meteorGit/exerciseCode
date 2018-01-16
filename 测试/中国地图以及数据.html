@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>中国地图及数据</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/china.js"></script>
+    <style>
+        #chinaCharts {
+            height: 500px;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chinaCharts"></div>
+    <script>
+        var data = [
+            { name: '北京', value: [999, true] },
+            { name: '天津', value: [888, true] },
+            { name: '上海', value: [777, true] },
+            { name: '重庆', value: [666, true] },
+            { name: '河北', value: [555, true] },
+            { name: '河南', value: [444, true] },
+            { name: '云南', value: [333, true] },
+            { name: '辽宁', value: [222, true] },
+            { name: '黑龙江', value: [111, true] },
+            { name: '湖南', value: [99, true] },
+            { name: '安徽', value: [88, true] },
+            { name: '山东', value: [77, true] },
+            { name: '新疆', value: [66, true] },
+            { name: '江苏', value: [55, true] },
+            { name: '浙江', value: [44, true] },
+            { name: '江西', value: [33, true] },
+            { name: '湖北', value: [22, true] },
+            { name: '广西', value: [11, true] },
+            { name: '甘肃', value: [9, true] },
+            { name: '山西', value: [1, true] },
+            { name: '内蒙古', value: [1, true] },
+            { name: '陕西', value: [1, true] },
+            { name: '吉林', value: [1, true] },
+            { name: '福建', value: [1, true] },
+            { name: '贵州', value: [1, true] },
+            { name: '广东', value: [1, true] },
+            { name: '青海', value: [1, true] },
+            { name: '西藏', value: [1, true] },
+            { name: '四川', value: [1, true] },
+            { name: '宁夏', value: [1, true] },
+            { name: '海南', value: [1, true] },
+            { name: '台湾', value: [1, true] },
+            { name: '香港', value: [1, true] },
+            { name: '澳门', value: [1, true] },
+            { name: '南海诸岛', value: [1, false], itemStyle: { normal: { opacity: 0, label: { show: false } } } }
+        ]
+        function descend(x, y) {
+            return y.value[0] - x.value[0]; //重新排序
+        }
+        data.sort(descend);
+        for (var i in data) {
+            if (i > 9) {
+                data[i].value[1] = false;
+            }
+        }
+        var myChart = echarts.init(document.getElementById('chinaCharts'));
+        myChart.setOption({
+            animation: false,
+            animationDurationUpdate: 1000,
+            animationEasingUpdate: 'cubicInOut',
+            dataRange: {
+                show: false,
+                color: ["#00b0c9"],
+            },
+            series: [{
+                type: 'map',
+                mapType: 'china',
+                itemStyle: {
+                    normal: {
+                        label: { show: true },
+                        borderWidth: 1,//省份的边框宽度
+                        borderColor: '#f4f4f4',//省份的边框颜色
+                    },
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: function (params) {
+                            var valueType = params.data.value[1] ? 'valueUp' : 'valueDown';
+                            if (!params.data.value[1]) {
+                                return "";
+                            }
+                            return params.name + '：{' + valueType + '|' + params.value + '}';
+                        },
+                        position: 'inside',
+                        backgroundColor: '#fff',
+                        padding: [4, 5],
+                        borderRadius: 100,
+                        borderWidth: 1,
+                        borderColor: 'rgba(0,0,0,0.5)',
+                        color: '#777',
+                        rich: {
+                            valueUp: {
+                                color: '#019D2D',
+                                fontSize: 14
+                            },
+                            valueDown: {
+                                color: 'rgba(0,0,0,0)',
+                                fontSize: 14
+                            },
+                        }
+                    },
+                },
+                data: data,
+            }
+            ]
+        });
+    </script>
+</body>
+
+</html>

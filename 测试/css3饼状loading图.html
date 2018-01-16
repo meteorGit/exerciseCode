@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .center {position: relative;height:200px;left: 50%;margin-left: -20px;}
+        .inner {width: 40px;height: 40px;position: absolute;background-color: #89abdd;border-radius: 50%;opacity: 1;animation: opa-hide 1.6s steps(1,end) infinite;top: 10px;}
+        .inner2 {width: 40px;height: 40px;position: absolute;background-color: #4b86db;border-radius: 50%;opacity: 1;animation: opa-show 1.6s steps(1,end) infinite;top: 10px;}
+        .spiner,.filler,.masker {width: 50%;height: 100%;position: absolute;}
+        .spiner {background-color: #4b86db;border-radius: 40px 0 0 40px;left: 0;top: 0;transform-origin: right center; animation: pm 800ms infinite linear;}
+        .filler {background-color: #89abdd;border-radius: 40px 0 0 40px;left: 0;top: 0;opacity: 0;animation: opa-show 800ms steps(1,end) infinite;}
+        .masker {background-color: #4b86db;border-radius: 0 40px 40px 0;left: 50%;top: 0;opacity: 1;animation: opa-hide 800ms steps(1,end) infinite;}
+        .inner2 .spiner {background-color: #89abdd;}
+        .inner2 .filler {background-color: #4b86db;}
+        .inner2 .masker {background-color: #89abdd;}
+        @keyframes pm {
+            0% {transform: rotate(360deg);}
+            100% {transform: rotate(0deg);}
+        }
+        @keyframes opa-hide {
+            0% {opacity: 1;}
+            50%,100% {opacity: 0;}
+        }
+        @keyframes opa-show {
+            0% {opacity: 0;}
+            50%,100% {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class="inner">
+            <div class="spiner"></div>
+            <div class="filler"></div>
+            <div class="masker"></div>
+        </div>
+        <div class="inner2">
+            <div class="spiner"></div>
+            <div class="filler"></div>
+            <div class="masker"></div>
+        </div>
+    </div>
+</body>
+</html>

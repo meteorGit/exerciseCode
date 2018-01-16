@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/ecmascript" src="md5.js"></script>
+</head>
+
+<body>
+    <input class="fileClass" type="file" accept="image/png,image/jpeg" name="file" />
+    <progress value="0" max="10" class="prouploadfile"></progress>
+</body>
+
+</html>
+<script>
+    $(".fileClass").on("change", function () {
+        var fs = $(this)[0].files;
+        console.log(fs);
+        var fsSize = fs[0].size;
+        console.log(fsSize);
+        var fsVal = $(this).val();
+        var fsName = fs[0].name;
+        console.log(fsName);
+        var MD5 = hex_md5(fs[0]);
+        console.log(MD5);
+        bxPageAPI("/html/shtml/api.ashx", "fileinfodetection", { filesize: fsSize, filename: fsName, md5: MD5, }, function (code, mes, response) {
+            if (code == 0) {
+                // current.headImgUrl = "data:image/jpeg;base64," + response.get("result");
+                // current.waterfall2.stop();
+                // current.waterfall2 = null;
+                // current.pageIndex = 0;
+                // current.isLoaded2 = current.isLoadPhotosEnabled2 = true;
+                // $(".divPage3 .divPhotoList").html("");
+                // $(".divPage3 .divPhotos").hide();
+                // pm.showPage(4);
+            }
+            else {
+                // alert("选择失败：" + mes);
+            }
+        });
+
+
+    })
+
+    // console.log(files);
+
+
+    // var packet = file.slice(start, end);
+
+    // var xhr = new XMLHttpRequest();
+    // var url = xxx // 文件上传的地址 可以包括文件的参数 如文件名称 分块数等以便后台处理 
+    // xhr.open('POST', url, true); 
+    // xhr.onload = function (e) {
+    //     // 判断文件是否上传成功，如果成功继续上传下一块，如果失败重试该快 
+    // }
+    // xhr.upload.onprogress = function (e) {
+    //     // 选用 如果文件分块大小较大 可以通过该方法判断单片文件具体的上传进度 
+    //     // e.loaded  该片文件上传了多少 
+    //     // e.totalSize 该片文件的总共大小 
+    // }
+    // xhr.send(packet);
+
+</script>
